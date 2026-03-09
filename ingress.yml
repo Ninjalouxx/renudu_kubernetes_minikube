@@ -5,6 +5,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
+    # Route 1 : myservice.info → myservice v1
     - host: myservice.info
       http:
         paths:
@@ -13,5 +14,16 @@ spec:
             backend:
               service:
                 name: myservice
+                port:
+                  number: 8080
+    # Route 2 : myservice2.info → myservice2 v2 (NOUVEAU)
+    - host: myservice2.info
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myservice2
                 port:
                   number: 8080
