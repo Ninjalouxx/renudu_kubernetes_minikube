@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myservice2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myservice2
+  template:
+    metadata:
+      labels:
+        app: myservice2
+    spec:
+      containers:
+        - image: ninjalouxx/myservice:2 
+          imagePullPolicy: IfNotPresent
+          name: myservice2
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice2
+spec:
+  selector:
+    app: myservice2
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
